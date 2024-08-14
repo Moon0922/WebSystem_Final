@@ -1,0 +1,74 @@
+{% extends 'pages/calendar-public/layout/base.html' %}
+{% load static %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'jsCalendar/source/jsCalendar.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/calendar-public/schedule.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/calendar-public/event-booking.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/calendar-public/calendar-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/calendar-public/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container" id="meeting-date">
+        <section class="description-section">
+            <hgroup>
+                <h5 id="scheduler">{{ event_type.slug }}</h5>
+                <h4 id="event">Meeting with {{ profile.title }}</h4>
+                <div class="icon-text-div">
+                    <img src="{% static '/img/clock.svg' %}" alt="clock-icon">
+                    <h5 id="duration">{{ event_type.duration_minutes }} min</h5>
+                </div>
+            </hgroup>
+            <p id=description>{{ event_type.description }}</p>
+        </section>
+        <div class="divider"></div>
+        <section id="calendar-section" class="body-section">
+            <h4>Select a Date & Time</h4>
+            <div id="schedule-div">
+                <div id="available-times-div"><!-- Available times --></div>
+                <div id="calendar"></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container hidden" id="meeting-register">
+        <section class="description-section">
+            <button class="back-btn" onclick="goBack()"><img class="arrow-icon" src="{% static '/img/arrow.svg' %}" alt="back-arrow"></button>
+            <hgroup>
+                <h5 id="scheduler">{{ event_type.slug }}</h5>
+                <h4 id="event">Meeting with {{ profile.title }}</h4>
+                <div class="icon-text-div">
+                    <img src="{% static '/img/clock.svg' %}" alt="clock-icon">
+                    <h6 id="duration">{{ event_type.duration_minutes }} min</h6>
+                </div>
+                <br>
+                <div class="icon-text-div">
+                    <img src="{% static '/img/calendar.svg' %}" alt="calendar-icon">
+                    <h6 id="event-time-stamp"></h6>
+                </div>
+            </hgroup>
+
+        </section>
+        <div class="divider"></div>
+        <section id="register-section" class="body-section">
+            <form id="myForm" method="POST">
+                <h5>Enter Details</h5>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" required>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+                <button id="submit-btn" type="submit">Schedule Event</button>
+            </form>
+        </section>
+    </div>
+{% endblock %}
+
+{% block extrascript %}
+    <script>
+        const eventTypeDurationMinutes = {{ event_type.duration_minutes }};
+    </script>
+    <script src="{% static '/libs/petite-vue/petite-vue-0.4.1.min.js' %}"></script>
+    <script src="{% static '/jsCalendar/source/jsCalendar.js' %}"></script>
+    <script src="{% static '/js/calendar-public/event-booking.js' %}"></script>
+{% endblock %}

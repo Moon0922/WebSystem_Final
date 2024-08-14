@@ -1,0 +1,34 @@
+{% extends 'pages/calendar-public/layout/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="section">
+        <div class="container-default width-100 w-container">
+            <div class="inner-container center">
+                <h1 class="heading">{{ profile.title }}'s Scheduling Page</h1>
+                <div class="paragraph-large mb-24">
+                    <p style="margin-bottom: 0">Welcome to my scheduling page. </p>
+                    <p>Please follow the instructions to add an event to my calendar.</p>
+                </div>
+                <div class="event-container">
+                    {% for events in event_types %}
+                        <a class="event" href="/{{ profile.url }}/{{ events.slug }}">
+                        <div class="event-summary">
+                            <div data-id="event-type-marker" class="event-mark"></div>
+                            <div data-id="event-type-header-title" class="event-title">{{ events.title }}</div>
+                            <div data-id="event-type-arrow" class="event-arrow"></div>
+                        </div>
+                            <div class="flex-vertical align-center text-center">
+                                <div class="event-type-details">
+                                    <p>{{ events.description }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
